@@ -241,6 +241,17 @@ function App() {
 										<Spinner animation="border" className='p-3 m-2' />
 									) : (
 										<button onClick={mintNFTHandler} className='button mint-button mt-3'>Mint</button>
+
+										<CrossmintPayButton
+										 collectionTitle="<TITLE_FOR_YOUR_COLLECTION>"
+										 collectionDescription="<DESCRIPTION_OF_YOUR_COLLECTION>"
+										 collectionPhoto="<OPT_URL_TO_PHOTO_COVER>"
+										 clientId="<YOUR_CLIENT_ID>"
+										 mintConfig={{
+										    price: "<SELECTED_PRICE>",
+										    onClick={mintNFTHandler} className='button mint-button mt-3'>Pay with Credit Card
+										</CrossmintPayButton>
+
 									)}
 
 									{ownerOf.length > 0 &&
@@ -252,35 +263,6 @@ function App() {
 												OpenSea
 											</a>
 										</small></p>}
-
-										<CrossmintPayButton
-            collectionTitle="<TITLE_FOR_YOUR_COLLECTION>"
-            collectionDescription="<DESCRIPTION_OF_YOUR_COLLECTION>"
-            collectionPhoto="<OPT_URL_TO_PHOTO_COVER>"
-            clientId="<YOUR_CLIENT_ID>"
-            mintConfig={{
-                price: "<SELECTED_PRICE>"
-                
-            if (gsTest && account) {
-            setIsMinting(true)
-            setIsError(false)
-
-            await gsTest.methods.mint(1).send({ from: account, value: 1 })
-                .on('confirmation', async () => {
-                    const maxSupply = await gsTest.methods.maxSupply().call()
-                    const totalSupply = await gsTest.methods.totalSupply().call()
-                    setSupplyAvailable(maxSupply - totalSupply)
-
-                    const ownerOf = await gsTest.methods.walletOfOwner(account).call()
-                    setOwnerOf(ownerOf)
-                })
-                .on('error', (error) => {
-                    window.alert(error)
-                    setIsError(true)
-                })
-        }
-            }}
-        />
 								</div>
 							)}
 						</Col>
